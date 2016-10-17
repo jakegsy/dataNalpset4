@@ -4,13 +4,29 @@ attach(MaunaLoa)
 names(MaunaLoa)
 year <- MaunaLoa$YEAR
 co2 <- MaunaLoa$CO2
-plot(year,co2,"l")
-abline(lm(co2~year))
-title(main="Mauna Loa Carbon Dioxide (ppm)")
 time <- year-1958
 
 
 #Problem 1: Fitting Trends Over the Entire Data Series
 #(a)
+plot(time,co2,"l")
 lmco2Time <- lm(co2~time)
-lmco2Year <- lm(co2~year)
+abline(lmco2Time)
+title(main="Mauna Loa Carbon Dioxide (ppm)")
+summary(lmco2Time)
+
+
+#(b)
+# From the data, co2 = 1.520 * time + 3.070e2
+# Therefore at startpoint, or 1958, co2 = 1.520 * 0 + 3.070e+02 = 307
+#           at endpoint, or 2016, co2 = 1.520 * 58 + 3.070e+02 = 395.16
+co2[1]
+co2[length(co2)]
+
+#(c)
+summary(lmco2Time)
+
+#(d)
+pred_co2 <- predict(lmco2Time)
+plot(time,co2,"l")
+lines(time,pred_co2)
