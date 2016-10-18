@@ -68,28 +68,71 @@ The standard deviation of the data-misfit residual, or the residual standard err
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=0.7\textwidth, clip]{q1aTime.png} 
-	\caption{Regression of time(with 1958 as origin) and Mauna Loa Carbon Dioxide Data}
+	\caption{Linear regression of time(with 1958 as origin) and Mauna Loa Carbon Dioxide}
 \end{figure}
 
 The data does not seem to follow strictly to a straight line, in fact, it appears to be have an exponential trend with a small enough exponent that it takes on pseudo-linear characteristics.\\
 
 Also, the linear prediction fails to take into account the saw-tooth motion that the data is taking, or the trend within the trend.
 
+\subsection{}
 
+The predicted start-point for the quadratic model is 314.2ppm, as compared to the actual start-point of 315.71ppm, with a difference of -1.51ppm.
 
+The predicted end-point is 401.89ppm, as compared to the actual end-point of 402.25ppm, with a difference of -0.36ppm.
 
+\subsection{}
+The predicted yearly increase at the start-point of the quadratic model is 0.8055ppm, and at the end-point it is 
+2.235ppm.
 
+\subsection{}
+The standard deviation of the data-misfit residual, or the residual standard error, is 2.209 on 699 degrees of freedom. The F variance ratio, or statistic, is 48160.
 
+\subsection{}
 
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=0.7\textwidth, clip]{q1hTime.png} 
+	\caption{Quadratic regression of time(with 1958 as origin) and Mauna Loa Carbon Dioxide}
+\end{figure}
 
+The quadratic model offers a better fit as compared to the linear model. We can look at the comparisons between predicted start-point/endpoint and actual start-point/endpoint to see that the error has become much smaller. \\
 
+However, the big inherent problem of not being able to take into account of the saw-tooth motion is still present. \\
 
+Although the quadratic model is able to help us reject a linear model, we do not know if the global trend is indeed quadratic-like, or if it is only localized to the 58 years frame.
 
+\subsection{}
+ 
+The standard deviation of the data-misfit residual, or the residual standard error, is 2.21 on 699 degrees of freedom.\\
 
+The significance of the cubic parameter is 0.642, which means that it is not very significant, and the null hypothesis of not having a cubic parameter cannot be rejected.
 
+\section{Fitting Trends and Cycles Over the Entire Data Series}
 
+\subsection{}
 
+The amplitude of the annual cycle in $CO_2$ is $2.833\pm0.06967$ ppm.
 
+\subsection{}
+
+The annual maximum occurs at 0.3095 of the cycle, or approxmiately towards the end of April. A quick sanity check at a zoomed in slice roughly confirms the assertion.
+
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=0.7\textwidth, clip]{q2bZoom.png} 
+	\caption{Zoomed in slice of time(with 1958 as origin) and Mauna Loa Carbon Dioxide}
+\end{figure}
+\pagebreak
+\subsection{}
+
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=0.7\textwidth, clip]{q2c.png} 
+	\caption{Comparing quadratic model residuals with quadratic and annual cycle residuals}
+\end{figure}
+
+The standard deviation of the quadratic model only is 2.206 whilst the standard deviation of the quadratic model and annual cycle residuals is 2.064.
 
 
 
