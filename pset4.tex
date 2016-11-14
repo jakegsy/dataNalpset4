@@ -40,7 +40,7 @@
 \textsc{Yale-NUS College} \\ [20pt]
 \textsc{YID3202C : Data Analysis in Environmental Studies } \\ [25pt] % Your university, school and/or department name(s)
 \horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
-\huge Problem Set One \\ % The assignment title
+\huge Problem Set Four \\ % The assignment title
 \horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
 }
 
@@ -135,16 +135,105 @@ The annual maximum occurs at 0.3095 of the cycle, or approxmiately towards the e
 The standard deviation of the quadratic model only is 2.206 whilst the standard deviation of the quadratic model and annual cycle residuals is 2.064.
 
 
+\subsection{}
+
+The amplitude of the semi-annual cycle of $CO_2$ is $0.7814\pm0.055805$ ppm.
+
+The inclusion of the semi-annual cycle gives the model a sharper characteristic in terms of the reverse in trend in the annual cycle. In other words, when maxima or minima is arrived at during the annual cycle, the first derivative changes direction much faster.
+
+The amplitudes of maximum and minimum also increase by approximately $10\%$.
+
+\pagebreak
+
+\subsection{}
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=0.7\textwidth, clip]{q2e.png} 
+	\caption{Residuals from quadratic, semi-annual and annual model with time}
+\end{figure}
+The standard deviation is 0.7361.
+
+\pagebreak
+\section{Fitting Trends and Cycles Over 10-year Data Segments}
+
+\subsection{}
+
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=0.7\textwidth, clip]{q3a.png} 
+	\caption{Annual-cycle amplitudes for decade-long segments of Mauna Loa $CO_2$ time series}
+\end{figure}
+There is definitely an upward trend in the annual-cycle amplitudes. However, this trend at first glance does not appear to follow a simple model(linear, quadratic or otherwise).
+\\
+
+The trend can be best described with two characteristics:\\
+1. A sharp transitional increase from 1970 - 1980.
 
 
+2. Slow but steady increase between 1980-2010.
 
+\pagebreak
+\subsection{}
 
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=0.7\textwidth, clip]{q3b.png} 
+	\caption{Annual-cycle phases for decade-long segments of Mauna Loa $CO_2$ time series}
+\end{figure}
+The days have shifted by approximately $6.695\pm 2.745$ days.
 
+\pagebreak
+\subsection{}
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=0.7\textwidth, clip]{q3c.png} 
+	\caption{Semi-annual-cycle amplitudes for decade-long segments of Mauna Loa $CO_2$ time series}
+\end{figure}
+The semi-annual amplitudes follow a slow increasing trend from 1958 to 2010, from a starting point of 0.733 to a final maximum endpoint of 0.8685. 
 
+Interestingly, the starting point is not the minima of the graph, although that can be easily explained by the high error bars, and the negligible distance(in y and x axis) between the minimum and the starting point.
 
+Just like in the annual trend, there is a sharper increase between 1970-1980, although in this case it goes on further towards 1990, before taking a small decline until the mid of 2000 and 2010, before reversing in trend and making a sharp increase to 2010 and onwards.
 
+\pagebreak
+\section{Fitting an Exponential Trend Over the Full Data Series}
+\subsection{}
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=0.7\textwidth, clip]{q4a.png} 
+	\caption{Logarithmic version of exponential model of Mauna Loa}
+\end{figure}
+\pagebreak
+\subsection{}
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=0.7\textwidth, clip]{q4b.png} 
+	\caption{Exponential model of Mauna Loa}
+\end{figure}
 
+The value at 1958 is 309.36 and the value at 2016 is 397.74.
 
+The data fit fails to take into account the semi-annual and annual cycle, and provides a seemingly poor prediction for the start and end-points.
+
+For an exponential model, this appears very linear, and it is no surprise given that the method employed begins with a linear modelling through the logarithmic before converting back by exponentiating.
+\pagebreak
+\subsection{}
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=0.7\textwidth, clip]{q4c.png} 
+	\caption{Exponential model of Mauna Loa with nls}
+\end{figure}
+
+The value for A is $256.9\pm2.542$, the value for B is $56.61\pm2.357$ and the value for C is $0.01627\pm0.0004390$.
+
+The standard error of residual is 2.225 on 699 degrees of freedom.
+
+This model bears a remarkabe similarity to the quadratic-polynomial solution.
+
+\subsection{}
+The standard deviation of 280 from A is 9.087.
+
+We get an extrapolation of 260.46ppm.
 
 
 

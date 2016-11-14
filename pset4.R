@@ -78,6 +78,7 @@ phaseD = atan2(coef_s,coef_c)/(2*pi)
 #(c)
 resid <- co2 - pred2_co2
 pred_co2A <- predict(lm2a_co2)
+plot(time,pred_co2A,"l")
 resid2 <- co2 - pred_co2A
 plot(resid,resid2, 
      xlab="Quadratic model residuals", 
@@ -97,8 +98,124 @@ dcoef2_s <- coef(summary(lm2a2_co2))["ann2_s", "Std. Error"]
 dcoef2_c <- coef(summary(lm2a2_co2))["ann2_c", "Std. Error"]
 dcoef_semiAnn <- sqrt(dcoef2_s^2 + dcoef2_c^2)
 pred_co2SA <- predict(lm2a2_co2)
-
-
-#(e)
 plot(time,pred_co2SA,"l")
 
+#(e)
+resid_sa <- co2 - pred_co2SA
+SDresid_sa <- sd(resid_sa)
+plot(time,resid_sa,
+     xlab="Time in years",
+     ylab="Residual from quadratic+annual+semi-annual cycle model",
+     "l")
+
+#Question 3
+#(a)
+ann1 <- 1:7 
+ann1_err <- 1:7 
+yr <- 1:7 
+for (j in c(1,98,195,292,389,486,583)){
+  k=k+1 
+  timed <- time[j:(j+119)] 
+  time2d <- timed^2 
+  co2d <- co2[j:(j+119)] 
+  ann_sd <- ann_s[j:(j+119)] 
+  ann_cd <- ann_c[j:(j+119)] 
+  ann2_sd <- ann2_s[j:(j+119)] 
+  ann2_cd <- ann2_c[j:(j+119)]
+  lmlmlm <- lm(co2d~timed+time2d+ann_sd+ann_cd+ann2_sd+ann2_cd)
+  summary(lmlmlm)
+  anns<-coef(summary(lmlmlm))["ann_sd","Estimate"]
+  annc<-coef(summary(lmlmlm))["ann_cd","Estimate"]
+  ann1[k] <- sqrt(anns^2+annc^2) 
+  yr[k] <- year[j+60]
+  anns <- coef(summary(lmlmlm))["ann_sd","Std. Error"]
+  annc <- coef(summary(lmlmlm))["ann_cd","Std. Error"]
+  ann1_err[k] <- sqrt(anns^2+annc^2)
+}
+
+qplot(yr,ann1)+
+geom_errorbar(aes(x=yr,ymin=ann1-ann1_err,ymax=ann1+ann1_err),width=2)
+
+#(b)
+ann_phase <- 1:7
+ann_pherr <- 1:7
+k=0
+yr <- 1:7
+for (j in c(1,98,195,292,389,486,583)){
+  k=k+1 
+  timed <- time[j:(j+119)] 
+  time2d <- timed^2 
+  co2d <- co2[j:(j+119)] 
+  ann_sd <- ann_s[j:(j+119)] 
+  ann_cd <- ann_c[j:(j+119)] 
+  ann2_sd <- ann2_s[j:(j+119)] 
+  ann2_cd <- ann2_c[j:(j+119)]
+  lmlmlm <- lm(co2d~timed+time2d+ann_sd+ann_cd+ann2_sd+ann2_cd)
+  summary(lmlmlm)
+  anns<-coef(summary(lmlmlm))["ann_sd","Estimate"]
+  annc<-coef(summary(lmlmlm))["ann_cd","Estimate"]
+  ann_amp <- sqrt(anns^2 + annc^2)
+  ann_phase[k] <- 180*atan2(anns,annc)/pi
+  yr[k] <- year[j+60]
+  anns <- coef(summary(lmlmlm))["ann_sd","Std. Error"]
+  annc <- coef(summary(lmlmlm))["ann_cd","Std. Error"]
+  ann_pherr[k] <- (180/pi)*sqrt(anns^2+annc^2)/ann_amp
+}
+qplot(yr,ann_phase)+
+  geom_errorbar(aes(x=yr,ymin=ann_phase-ann_pherr,ymax=ann_phase+ann_pherr),width=2)
+
+#(c)
+
+sann1 <- 1:7 
+sann1_err <- 1:7 
+yr <- 1:7 
+k=0
+for (j in c(1,98,195,292,389,486,583)){
+  k=k+1 
+  timed <- time[j:(j+119)] 
+  time2d <- timed^2 
+  co2d <- co2[j:(j+119)] 
+  ann_sd <- ann_s[j:(j+119)] 
+  ann_cd <- ann_c[j:(j+119)] 
+  ann2_sd <- ann2_s[j:(j+119)] 
+  ann2_cd <- ann2_c[j:(j+119)]
+  lmlmlm <- lm(co2d~timed+time2d+ann_sd+ann_cd+ann2_sd+ann2_cd)
+  summary(lmlmlm)
+  sanns<-coef(summary(lmlmlm))["ann2_sd","Estimate"]
+  sannc<-coef(summary(lmlmlm))["ann2_cd","Estimate"]
+  sann1[k] <- sqrt(sanns^2+sannc^2) 
+  yr[k] <- year[j+60]
+  sanns <- coef(summary(lmlmlm))["ann2_sd","Std. Error"]
+  sannc <- coef(summary(lmlmlm))["ann2_cd","Std. Error"]
+  sann1_err[k] <- sqrt(sanns^2+sannc^2)
+}
+
+qplot(yr,sann1)+
+  geom_errorbar(aes(x=yr,ymin=sann1-sann1_err,ymax=sann1+sann1_err),width=2)
+
+#Question 4
+#(a)
+lmlogExp <- lm(log(co2)~time)
+pred_logExp <- predict(lmlogExp)
+plot(time,log(co2),"l")
+lines(time,pred_logExp,col="red")
+#(b)
+pred_exp <- exp(pred_logExp)
+plot(time,co2,"l")
+lines(time,pred_exp,col="red")
+
+#(c)
+st <- coef(nls(log(co2) ~ log(a+b*exp(c*time)) ,start=list(a=0,b=5.73,c=0.004)))
+
+astart = st[1]
+bstart = st[2]
+cstart = st[3]
+nlm_co2 <- nls(co2 ~ a + b*exp(c*time),start=list(a=astart,b=bstart,c=cstart))
+
+predexp <- predict(nlm_co2)
+plot(year,co2,"l")
+title(main="Mauna Loa Carbon Dioxide(ppm)")
+lines(year,predexp,col="red")
+#(d)
+sdfrom = (280-256.9)/2.542
+extrapolate = 256.9+56.61*exp(0.01627*-170)
